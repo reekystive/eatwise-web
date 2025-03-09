@@ -174,6 +174,14 @@ const MobileNavBarPlaceholder: FC = () => {
   );
 };
 
+const ZoomInWrapper: FC<{ children: ReactNode }> = ({ children }) => {
+  return (
+    <div className="animate-in fade-in-70 zoom-in-[0.997] md:zoom-in-[0.998] duration-100 cubic-bezier(0.1, 1, 0.3, 1) motion-reduce:animate-none w-full h-full">
+      {children}
+    </div>
+  );
+};
+
 /**
  * Props for the AppLayout component
  */
@@ -224,7 +232,7 @@ export const AppLayout: FC<AppLayoutProps> = ({ children }) => {
       <DesktopSidebar tabs={tabs} pathname={pathname} onTabItemClick={handleClick} />
       <main className="flex h-full min-w-0 flex-1 flex-col overflow-clip">
         <div className="flex min-h-0 w-full flex-1 flex-col items-center justify-start pr-[env(safe-area-inset-right)] pl-[env(safe-area-inset-left)] md:pl-0">
-          {children}
+          <ZoomInWrapper key={pathname}>{children}</ZoomInWrapper>
         </div>
         <MobileNavBarPlaceholder />
       </main>
