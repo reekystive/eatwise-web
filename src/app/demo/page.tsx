@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Drawer,
   DrawerTrigger,
@@ -8,16 +10,35 @@ import {
   DrawerDescription,
 } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function Demo() {
   return (
     <div className="container h-full w-full overflow-auto overscroll-contain">
+      <div className="h-6 w-full md:h-0"></div>
+
       <div className="container mx-auto max-w-[1200px] space-y-16 px-4 py-16">
         {/* 页面标题 */}
         <div className="space-y-3">
           <h1 className="text-4xl font-bold tracking-tight">组件展示 </h1>
           <p className="text-muted-foreground text-lg">这里展示了所有可用的组件及其变体组合</p>
         </div>
+
+        {/* 功能预览 */}
+        <section className="space-y-8">
+          <div className="space-y-3 border-b pb-6">
+            <h2 className="text-2xl font-semibold tracking-tight">功能预览</h2>
+            <p className="text-muted-foreground text-lg">应用的主要功能预览</p>
+          </div>
+
+          <div className="space-y-4">
+            <div className="flex flex-wrap items-center gap-6">
+              <Link href="/demo/capture">
+                <Button>拍摄食物功能预览</Button>
+              </Link>
+            </div>
+          </div>
+        </section>
 
         {/* 按钮组件 */}
         <section className="space-y-8">
@@ -260,6 +281,8 @@ export default function Demo() {
           <p className="text-muted-foreground text-lg">更多组件即将添加...</p>
         </div>
       </div>
+
+      <div className="h-24 w-full md:h-12"></div>
     </div>
   );
 }

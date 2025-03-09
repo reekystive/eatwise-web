@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:https": "concurrently --raw 'pnpm run dev' 'pnpm run ssl-proxy'",
+    "ssl-proxy": "local-ssl-proxy --source 3001 --target 3000",
     "build": "next build",
     "start": "next start",
     "lint:eslint": "eslint . --ext .ts,.tsx,.js,.jsx,.mjs,.mts --config eslint.config.js",
@@ -16,6 +18,7 @@
     "node": "^22.6.0"
   },
   "dependencies": {
+    "@radix-ui/react-alert-dialog": "^1.1.6",
     "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-dropdown-menu": "^2.1.6",
     "@radix-ui/react-slot": "^1.1.2",
@@ -27,6 +30,7 @@
     "next-themes": "^0.4.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-spinners": "^0.15.0",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^1.1.2"
@@ -42,11 +46,13 @@
     "@types/node": "^22.13.8",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
+    "concurrently": "^9.1.2",
     "eslint": "^9.21.0",
     "eslint-config-next": "^15.2.0",
     "eslint-config-prettier": "^10.0.2",
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-react-hooks": "*",
+    "local-ssl-proxy": "^2.0.5",
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
     "prettier-plugin-sort-imports": "^1.8.6",

@@ -1,9 +1,13 @@
+'use client';
+
 import { ThemeToggle } from '@/components/theme/theme-toggle';
 import { FC } from 'react';
 
 const SettingsPage: FC = () => {
   return (
     <div className="container h-full w-full overflow-auto overscroll-contain">
+      <div className="h-6 w-full md:h-0"></div>
+
       <h1 className="mb-4 p-4 text-2xl font-bold md:mb-6 md:p-6">设置</h1>
 
       <div className="space-y-6 px-4 md:px-6">
@@ -85,7 +89,7 @@ const SettingsPage: FC = () => {
         </div>
       </div>
 
-      <div className="h-4 w-full md:h-6"></div>
+      <div className="h-24 w-full md:h-12"></div>
     </div>
   );
 };

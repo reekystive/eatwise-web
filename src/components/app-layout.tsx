@@ -8,6 +8,7 @@
  * - A responsive layout with sidebar for desktop and bottom navigation for mobile
  * - Navigation tabs for different sections of the application
  * - Active state highlighting for the current route
+ * - Global Dialog provider for showing dialogs from anywhere in the app
  *
  * The layout adapts to different screen sizes, showing a sidebar on desktop
  * and a bottom navigation bar on mobile devices.
@@ -176,7 +177,7 @@ const MobileNavBarPlaceholder: FC = () => {
 
 const ZoomInWrapper: FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className="animate-in fade-in-70 zoom-in-[0.997] md:zoom-in-[0.998] duration-100 cubic-bezier(0.1, 1, 0.3, 1) motion-reduce:animate-none w-full h-full">
+    <div className="animate-in fade-in-60 zoom-in-[0.995] md:zoom-in-[0.998] cubic-bezier(0.1, 1, 0.3, 1) h-full w-full duration-150 motion-reduce:animate-none">
       {children}
     </div>
   );
