@@ -2,6 +2,8 @@ words:
   - alka
   - clsx
   - eatwise
+  - neondatabase
+  - neondb
   - oklch
   - shadcn
   - SMIL
@@ -15,3 +17,5 @@ ignorePaths:
   - pnpm-lock.yaml
   - cspell.config.yaml
   - .next
+  - .env.example
+  - .env.local
