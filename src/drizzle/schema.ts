@@ -13,3 +13,13 @@ export const UserTable = pgTable('users', {
     .notNull()
     .$onUpdate(() => new Date()),
 });
+
+export const SessionTable = pgTable('sessions', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id')
+    .notNull()
+    .references(() => UserTable.id, { onDelete: 'cascade' }),
+  token: text('token').notNull().unique(),
+  expiresAt: timestamp('expires_at').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});

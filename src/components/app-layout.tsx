@@ -14,11 +14,12 @@
  * and a bottom navigation bar on mobile devices.
  */
 
-import { Beef, Calendar, Compass, History, Settings, User } from 'lucide-react';
+import { Beef, Calendar, Compass, History, User } from 'lucide-react';
 import { FC, MouseEventHandler, ReactNode, useMemo } from 'react';
 import { SecretDrawer } from '@/components/secret-drawer';
+import { usePathname, useRouter } from 'next/navigation';
 import { useSecretDemo } from '@/hooks/use-secret-demo';
-import { usePathname } from 'next/navigation';
+import { useAuth } from '@/contexts/auth-context';
 import { cn } from '@/utils/component';
 import Link from 'next/link';
 
@@ -61,7 +62,7 @@ const NavTab: FC<NavTabProps> = ({ tab, variant, pathname, onTabItemClick }) => 
 
   // Handle click event, trigger onTabItemClick if it's the settings tab
   const handleClick: MouseEventHandler<HTMLAnchorElement> = () => {
-    if (tab.id === 'settings' && onTabItemClick) {
+    if (tab.id === 'profile' && onTabItemClick) {
       // Call onTabItemClick to handle consecutive click logic
       onTabItemClick();
     }
@@ -117,6 +118,9 @@ interface DesktopSidebarProps {
  * DesktopSidebar component renders the sidebar navigation for desktop view
  */
 const DesktopSidebar: FC<DesktopSidebarProps> = ({ tabs, pathname, onTabItemClick }) => {
+  const { user } = useAuth();
+  const router = useRouter();
+
   return (
     <nav className="bg-sidebar hidden h-full w-56 shrink-0 grow-0 flex-col border-r pl-[env(safe-area-inset-left)] md:flex">
       <div className="flex flex-row items-center gap-2 px-5 py-4">
@@ -129,11 +133,16 @@ const DesktopSidebar: FC<DesktopSidebarProps> = ({ tabs, pathname, onTabItemClic
           <NavTab key={tab.id} tab={tab} pathname={pathname} variant="desktop" onTabItemClick={onTabItemClick} />
         ))}
       </div>
-      <div className="flex flex-row items-center gap-2 px-5 py-4">
+      <div
+        className="flex cursor-pointer flex-row items-center gap-2 px-5 py-4"
+        onClick={() => {
+          router.push(user ? '/profile' : '/login');
+        }}
+      >
         <div className="bg-sidebar-accent rounded-full p-2">
           <User className="size-5" />
         </div>
-        <div className="text-sidebar-foreground text-sm">John Doe</div>
+        <div className="text-sidebar-foreground text-sm">{user ? user.name : '未登录'}</div>
       </div>
     </nav>
   );
@@ -198,32 +207,35 @@ export const AppLayout: FC<AppLayoutProps> = ({ children }) => {
   const pathname = usePathname();
   const { handleClick, isDrawerOpen, onDrawerOpenChange } = useSecretDemo();
 
-  const tabs: TabItem[] = [
-    {
-      id: 'today',
-      label: '今日',
-      icon: <Calendar className="size-5" />,
-      path: '/',
-    },
-    {
-      id: 'discover',
-      label: '发现',
-      icon: <Compass className="size-5" />,
-      path: '/discover',
-    },
-    {
-      id: 'history',
-      label: '历史',
-      icon: <History className="size-5" />,
-      path: '/history',
-    },
-    {
-      id: 'settings',
-      label: '设置',
-      icon: <Settings className="size-5" />,
-      path: '/settings',
-    },
-  ];
+  const tabs: TabItem[] = useMemo(
+    () => [
+      {
+        id: 'today',
+        label: '今日',
+        icon: <Calendar className="size-5" />,
+        path: '/',
+      },
+      {
+        id: 'discover',
+        label: '发现',
+        icon: <Compass className="size-5" />,
+        path: '/discover',
+      },
+      {
+        id: 'history',
+        label: '历史',
+        icon: <History className="size-5" />,
+        path: '/history',
+      },
+      {
+        id: 'profile',
+        label: '我的',
+        icon: <User className="size-5" />,
+        path: '/profile',
+      },
+    ],
+    []
+  );
 
   return (
     <div

@@ -1,5 +1,6 @@
 import { ThemeProvider } from '@/components/theme/theme-provider';
 import { ThemeEffect } from '@/components/theme/theme-effect';
+import { AuthProvider } from '@/contexts/auth-context';
 import { AppLayout } from '@/components/app-layout';
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
@@ -33,10 +34,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en" suppressHydrationWarning>
       <body className={cn(inter.className, 'h-[100dvh] w-[100dvw] overflow-clip antialiased')}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <>
+          <AuthProvider>
             <ThemeEffect />
             <AppLayout>{children}</AppLayout>
-          </>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

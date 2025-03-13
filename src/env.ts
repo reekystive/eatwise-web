@@ -7,6 +7,8 @@ config();
 export const env = createEnv({
   server: {
     DATABASE_URL: z.string().url(),
+    JWT_SECRET: z.string().min(1),
+    JWT_EXPIRES_IN: z.string().optional().default('30d'),
   },
 
   client: {},
